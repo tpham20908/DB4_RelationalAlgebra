@@ -2,7 +2,7 @@
 
 \project_{pizza} (
   (\select_{gender = 'female' and age > '20'} Person) \join Eats
-)
+);
 
 ================================================================================
 
@@ -14,7 +14,7 @@
   Eats
   \join
   (\select_{pizzeria = 'Straw Hat'} Serves)
-)
+);
 
 ================================================================================
 
@@ -26,7 +26,7 @@
   Eats
   \join
   (\select_{price<'10'} Serves)
-)
+);
 
 ================================================================================
 
@@ -36,7 +36,7 @@
   \project_{pizza}(\select_{name = 'Amy'} Eats) \intersect \project_{pizza}(\select_{name = 'Fay'} Eats)
   \join
   (\select_{price<'10'} Serves)
-)
+);
 
 ================================================================================
 
@@ -48,7 +48,7 @@
 \diff
 \project_{name} (
   \select_{pizzeria = 'Dominos'} Frequents
-)
+);
 
 ================================================================================
 
@@ -56,6 +56,27 @@
 
 (\project_{pizza}(Serves) \diff \project_{pizza}(\select_{price>'10'} Serves))
 \union
-(\project_{pizza}(Eats) \diff \project_{pizza}(\select_{age>='24'} Person \join Eats))
+(\project_{pizza}(Eats) \diff \project_{pizza}(\select_{age>='24'} Person \join Eats));
 
 ================================================================================
+
+7. Find the age of the oldest person (or people) who eat mushroom pizza.
+
+\project_{age}(\project_{name}(\select_{pizza = 'mushroom'}Eats) \join Person)
+\diff
+\project_{age2}(
+\rename_{age2}(\project_{age}(\project_{name}(\select_{pizza = 'mushroom'}Eats) \join Person))
+\join_{age2 < age1}
+\rename_{age1}(\project_{age}(\project_{name}(\select_{pizza = 'mushroom'}Eats) \join Person))
+);
+
+================================================================================
+
+8. Find all pizzerias that serve only pizzas eaten by people over 30.
+
+
+
+================================================================================
+
+9. Find all pizzerias that serve every pizza eaten by people over 30.
+
