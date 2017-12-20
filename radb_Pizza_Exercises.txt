@@ -82,11 +82,9 @@
         (\project_{pizza} Eats)
         \diff
         (
+            \project_{pizza}
             (
-                \project_{pizza}
-                (
-                    (\select_{age > 30} Person) \join Eats
-                )
+                (\select_{age > 30} Person) \join Eats
             )
         )
     ) \join Serves
